@@ -13,4 +13,4 @@
 
 **Ссылка на проект**
 
-* 
+* https://mrheizenberg.github.io/mesto/index.html
