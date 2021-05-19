@@ -1,4 +1,4 @@
-.poppup__save {
+.popup__save {
     margin: 0 auto 37px;
     border: none;
     outline: none;
@@ -13,12 +13,12 @@
     transition: opacity 0.3s ease;
 }
 
-.poppup__save:hover {
+.popup__save:hover {
     opacity: 0.6;
 }
 
 @media screen and (max-width: 767px) {
-    .poppup__save {
+    .popup__save {
         width: 238px;
         margin: 0 auto 25px;
     }

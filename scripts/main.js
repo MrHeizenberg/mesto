@@ -21,7 +21,7 @@ popupClose.addEventListener("click", function() {
     jobInput.value = descriptionAuthor.textContent;
 })
 
-let submit = document.querySelector(".poppup__save");
+let submit = document.querySelector(".popup__save");
 submit.addEventListener("click", function() {
     Author.textContent = nameInput.value;
     descriptionAuthor.textContent = jobInput.value;
