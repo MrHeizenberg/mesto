@@ -1,25 +1,27 @@
 .popup__save {
     margin: 0 auto 37px;
     border: none;
+    background-color: black;
+    color: white;
+    font-size: 18px;
+    line-height: 22px;
     outline: none;
-    text-indent: -9999px;
     width: 358px;
-    background-image: url(../../../images/SubmitButton.svg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    min-height: 50px;
-    background-position: center;
+    height: 50px;
     cursor: pointer;
     transition: opacity 0.3s ease;
 }
 
 .popup__save:hover {
-    opacity: 0.6;
+    opacity: 0.5;
 }
 
 @media screen and (max-width: 767px) {
     .popup__save {
         width: 238px;
+        height: 46px;
+        font-size: 14px;
+        line-height: 17px;
         margin: 0 auto 25px;
     }
 }

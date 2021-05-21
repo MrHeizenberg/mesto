@@ -11,7 +11,6 @@
 
         <header class="header root">
             <img src="./images/Vector.svg" alt="Лого" class="header__logo">
-            <img src="./images/Line.svg" alt="Линия" class="header__line">
         </header>
 
         <main class="content root">
@@ -21,54 +20,54 @@
                 <div class="profile__info">
                     <h1 class="profile__title">Жак-Ив Кусто</h1>
                     <p class="profile__subtitle">Исследователь океана</p>
-                    <button class="profile__edit"></button>
+                    <button type = "button" class="profile__edit"></button>
                 </div>
-                <button class="profile__add"></button>
+                <button type = "button" class = "profile__add"></button>
             </section>
 
             <section class="cards">
-                <div class="cards__card">
+                <article class="cards__card">
                     <img src="./images/Karach.png" alt="Карачаевск" class="cards__photo">
                     <div class="cards__description">
                         <h2 class="cards__title">Карачаевск</h2>
                         <div class="cards__like"></div>
                     </div>
-                </div>
-                <div class="cards__card">
+                </article>
+                <article class="cards__card">
                     <img src="./images/Elbrus.png" alt="Эльбрус" class="cards__photo">
                     <div class="cards__description">
                         <h2 class="cards__title">Гора Эльбрус</h2>
                         <div class="cards__like"></div>
                     </div>
-                </div>
-                <div class="cards__card">
+                </article>
+                <article class="cards__card">
                     <img src="./images/Dombai.png" alt="Домбай" class="cards__photo">
                     <div class="cards__description">
                         <h2 class="cards__title">Домбай</h2>
                         <div class="cards__like"></div>
                     </div>
-                </div>
-                <div class="cards__card">
+                </article>
+                <article class="cards__card">
                     <img src="./images/Elbrus.png" alt="Эльбрус" class="cards__photo">
                     <div class="cards__description">
                         <h2 class="cards__title">Гора Эльбрус</h2>
                         <div class="cards__like"></div>
                     </div>
-                </div>
-                <div class="cards__card">
+                </article>
+                <article class="cards__card">
                     <img src="./images/Dombai.png" alt="Домбай" class="cards__photo">
                     <div class="cards__description">
                         <h2 class="cards__title">Домбай</h2>
                         <div class="cards__like"></div>
                     </div>
-                </div>
-                <div class="cards__card">
+                </article>
+                <article class="cards__card">
                     <img src="./images/Karach.png" alt="Карачаево-Черкессия" class="cards__photo">
                     <div class="cards__description">
                         <h2 class="cards__title">Карачаево-Черкессия</h2>
-                        <div class="cards__like"></div>
+                        <button type="button" class="cards__like"></button>
                     </div>
-                </div>
+                </article>
             </section>
         </main>
 
@@ -76,14 +75,15 @@
             <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
         </footer>
 
-        <section class="popup">
+        <div class="popup">
             <div class="popup__container">
-                <img src="./images/CloseIcon.svg" alt="Закрыть" class="popup__close">  
+                <button type="button" class="popup__close"></button>  
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <input type="text" class="popup__text popup__text_author">
-                <input type="text" class="popup__text popup__text_description">
-                <input type="submit" class="popup__save"></div>
-        </section>
+                <form name="infosave" class="popup__infosave">
+                    <input  type="text" name="author" class="popup__text">
+                    <input  type="text" name="description" class="popup__text">
+                    <input type="submit" class="popup__save" value = "Сохранить">
+                </form>
 
         <script src="./scripts/main.js"></script>
 
