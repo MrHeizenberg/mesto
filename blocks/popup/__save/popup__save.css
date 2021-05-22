@@ -8,12 +8,13 @@
     outline: none;
     width: 358px;
     height: 50px;
+    border-radius: 2px;
     cursor: pointer;
     transition: opacity 0.3s ease;
 }
 
 .popup__save:hover {
-    opacity: 0.5;
+    opacity: 0.8;
 }
 
 @media screen and (max-width: 767px) {

@@ -3,8 +3,8 @@ let popup = document.querySelector('.popup');
 let popupClose = document.querySelector('.popup__close');
 let author = document.querySelector('.profile__title');
 let descriptionAuthor = document.querySelector('.profile__subtitle');
-let jobInput = document.querySelector('input[name=author]');
-let nameInput = document.querySelector('input[name=description]');
+let jobInput = document.querySelector('input[name=description]');
+let nameInput = document.querySelector('input[name=author]');
 let form = document.querySelector('.popup__infosave');
 
 function openPopup() {
@@ -17,7 +17,8 @@ function closePopup() {
     popup.classList.remove('popup_open');
 }
 
-function save() {
+function saveFormProfile(event) {
+    event.preventDefault();
     author.textContent = nameInput.value;
     descriptionAuthor.textContent = jobInput.value;
     closePopup();
@@ -25,4 +26,4 @@ function save() {
 
 popupOpen.addEventListener('click', openPopup);
 popupClose.addEventListener('click', closePopup);
-form.addEventListener('submit', save);
+form.addEventListener('submit', saveFormProfile);
