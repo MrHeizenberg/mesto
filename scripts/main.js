@@ -1,12 +1,16 @@
-let popupOpen = document.querySelector('.profile__edit');
+let popupEditOpen = document.querySelector('.profile__edit');
 let popupEdit = document.querySelector('.popup_type_edit');
-let popup = document.querySelector('.popup_type_addcard');
-let popupClose = document.querySelector('.popup__close');
+let popupAddCardOpen = document.querySelector('.profile__add');
+let popupAddCard = document.querySelector('.popup_type_addcard');
+let popupEditClose = document.querySelector('.popup__close');
+let popupAddCardClose = document.querySelector('.popup__close_type_addcard');
 let author = document.querySelector('.profile__title');
 let descriptionAuthor = document.querySelector('.profile__subtitle');
 let jobInput = document.querySelector('input[name=description]');
 let nameInput = document.querySelector('input[name=author]');
 let form = document.querySelector('.popup__infosave');
+let nameNone = document.querySelector('input[name="area"]');
+let linkNone = document.querySelector('input[name="imagelink"]');
 const initialCards = [
     {
         name: 'Архыз',
@@ -52,12 +56,32 @@ function saveFormProfile(event) {
     event.preventDefault();
     author.textContent = nameInput.value;
     descriptionAuthor.textContent = jobInput.value;
-    closePopup();
+    toggleModal(popupEdit);
 }
 
-popupOpen.addEventListener('click', () => {
+function invisText(event) {
+    if (event.target === nameNone) {
+        console.log(event.target)
+        nameNone.placeholder = '';
+    }
+    else nameNone.placeholder = 'Название';
+
+    if (event.target === linkNone) {
+        console.log(event.target)
+        linkNone.placeholder = '';
+    }
+    else linkNone.placeholder = 'Ссылка на картинку';
+}
+
+popupEditOpen.addEventListener('click', () => {
     nameInput.value = author.textContent;
     jobInput.value = descriptionAuthor.textContent;
-    toggleModal(popupEdit)})
-popupClose.addEventListener('click', () => toggleModal(popupEdit));
+    toggleModal(popupEdit)});
+popupEditClose.addEventListener('click', () => toggleModal(popupEdit));
+
+popupAddCardOpen.addEventListener('click', () => {toggleModal(popupAddCard)});
+popupAddCardClose.addEventListener('click', () => toggleModal(popupAddCard));
+
+popupAddCard.addEventListener('click', (event) => invisText(event));
+
 form.addEventListener('submit', saveFormProfile);
