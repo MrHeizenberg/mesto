@@ -1,5 +1,6 @@
 let popupOpen = document.querySelector('.profile__edit');
-let popup = document.querySelector('.popup');
+let popupEdit = document.querySelector('.popup_type_edit');
+let popup = document.querySelector('.popup_type_addcard');
 let popupClose = document.querySelector('.popup__close');
 let author = document.querySelector('.profile__title');
 let descriptionAuthor = document.querySelector('.profile__subtitle');
@@ -33,27 +34,18 @@ const initialCards = [
     }
 ];
 const cardsTemplate = document.querySelector('#cards').content;
-const cardsElement = cardsTemplate.cloneNode(true);
 const cardsTable = document.querySelector('.cards');
-const Cardsall = document.querySelector('.cards__card');
 
+initialCards.forEach(function(el,i) {
+    const cardsElement = cardsTemplate.cloneNode(true);
+    cardsElement.querySelector('.cards__photo').src = initialCards[i].link;
+    cardsElement.querySelector('.cards__photo').alt = initialCards[i].name;
+    cardsElement.querySelector('.cards__title').textContent = initialCards[i].name;
+    cardsTable.append(cardsElement);
+})
 
-        cardsElement.querySelector('.cards__photo').src = initialCards[1].link;
-        cardsTable.append(cardsElement);
-        
-        /* cardsAll.append(cardsElement); */
-    
-        
-
-
-function openPopup() {
-    nameInput.value = author.textContent;
-    jobInput.value = descriptionAuthor.textContent;
-    popup.classList.add('popup_open');
-}
-
-function closePopup() {
-    popup.classList.remove('popup_open');
+function toggleModal(modal) {
+    modal.classList.toggle('popup_open');
 }
 
 function saveFormProfile(event) {
@@ -63,6 +55,9 @@ function saveFormProfile(event) {
     closePopup();
 }
 
-popupOpen.addEventListener('click', openPopup);
-popupClose.addEventListener('click', closePopup);
+popupOpen.addEventListener('click', () => {
+    nameInput.value = author.textContent;
+    jobInput.value = descriptionAuthor.textContent;
+    toggleModal(popupEdit)})
+popupClose.addEventListener('click', () => toggleModal(popupEdit));
 form.addEventListener('submit', saveFormProfile);
