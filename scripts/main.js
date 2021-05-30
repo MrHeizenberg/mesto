@@ -11,6 +11,8 @@ let nameInput = document.querySelector('input[name=author]');
 let form = document.querySelector('.popup__infosave');
 let nameNone = document.querySelector('input[name="area"]');
 let linkNone = document.querySelector('input[name="imagelink"]');
+let formAddCards = document.querySelector('.popup__infosave_type_addcard');
+
 const initialCards = [
     {
         name: 'Архыз',
@@ -37,6 +39,7 @@ const initialCards = [
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
 ];
+
 const cardsTemplate = document.querySelector('#cards').content;
 const cardsTable = document.querySelector('.cards');
 
@@ -59,19 +62,35 @@ function saveFormProfile(event) {
     toggleModal(popupEdit);
 }
 
+function createCards(event) {
+    event.preventDefault();
+    const cardsElement = cardsTemplate.cloneNode(true);
+    cardsElement.querySelector('.cards__photo').src = linkNone.value;
+    console.log(linkNone.value);
+    cardsElement.querySelector('.cards__title').textContent = nameNone.value;
+    cardsTable.prepend(cardsElement);
+    toggleModal(popupAddCard);
+}
+
+let cardsLike = document.querySelectorAll('.cards__like');
+console.log(cardsLike);
+
 function invisText(event) {
     if (event.target === nameNone) {
-        console.log(event.target)
         nameNone.placeholder = '';
     }
     else nameNone.placeholder = 'Название';
 
     if (event.target === linkNone) {
-        console.log(event.target)
         linkNone.placeholder = '';
     }
     else linkNone.placeholder = 'Ссылка на картинку';
 }
+
+cardsLike.forEach((el,i) => {
+    cardsLike[i].addEventListener('click', function toggle(evt) {
+        evt.target.classList.toggle('cards__like_active');
+    })});
 
 popupEditOpen.addEventListener('click', () => {
     nameInput.value = author.textContent;
@@ -85,3 +104,4 @@ popupAddCardClose.addEventListener('click', () => toggleModal(popupAddCard));
 popupAddCard.addEventListener('click', (event) => invisText(event));
 
 form.addEventListener('submit', saveFormProfile);
+formAddCards.addEventListener('submit', createCards);
