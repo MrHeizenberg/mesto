@@ -43,12 +43,20 @@ const initialCards = [
 const cardsTemplate = document.querySelector('#cards').content;
 const cardsTable = document.querySelector('.cards');
 
+
 initialCards.forEach(function(el,i) {
     const cardsElement = cardsTemplate.cloneNode(true);
     cardsElement.querySelector('.cards__photo').src = initialCards[i].link;
     cardsElement.querySelector('.cards__photo').alt = initialCards[i].name;
     cardsElement.querySelector('.cards__title').textContent = initialCards[i].name;
     cardsTable.append(cardsElement);
+})
+
+const cardsDelete = document.querySelectorAll('.cards__delete');
+cardsDelete.forEach((el,i) => {
+    cardsDelete[i].addEventListener('click', function (evt) {
+        evt.target.closest('.cards__card').remove();
+    })
 })
 
 function toggleModal(modal) {
@@ -73,7 +81,6 @@ function createCards(event) {
 }
 
 let cardsLike = document.querySelectorAll('.cards__like');
-console.log(cardsLike);
 
 function invisText(event) {
     if (event.target === nameNone) {
