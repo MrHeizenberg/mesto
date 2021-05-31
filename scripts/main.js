@@ -1,19 +1,19 @@
-let popupEditOpen = document.querySelector('.profile__edit');
-let popupEdit = document.querySelector('.popup_type_edit');
-let popupAddCardOpen = document.querySelector('.profile__add');
-let popupAddCard = document.querySelector('.popup_type_addcard');
-let popupEditClose = document.querySelector('.popup__close');
-let popupAddCardClose = document.querySelector('.popup__close_type_addcard');
-let author = document.querySelector('.profile__title');
-let descriptionAuthor = document.querySelector('.profile__subtitle');
-let jobInput = document.querySelector('input[name=description]');
-let nameInput = document.querySelector('input[name=author]');
-let form = document.querySelector('.popup__infosave');
-let nameNone = document.querySelector('input[name="area"]');
-let linkNone = document.querySelector('input[name="imagelink"]');
-let formAddCards = document.querySelector('.popup__infosave_type_addcard');
-let popupImageOpen = document.querySelector('.popup_type_image');
-let popupImageClose = document.querySelector('.popup__close_type_image');
+const popupEditOpen = document.querySelector('.profile__edit');
+const popupEdit = document.querySelector('.popup_type_edit');
+const popupAddCardOpen = document.querySelector('.profile__add');
+const popupAddCard = document.querySelector('.popup_type_addcard');
+const popupEditClose = document.querySelector('.popup__close');
+const popupAddCardClose = document.querySelector('.popup__close_type_addcard');
+const author = document.querySelector('.profile__title');
+const descriptionAuthor = document.querySelector('.profile__subtitle');
+const jobInput = document.querySelector('input[name=description]');
+const nameInput = document.querySelector('input[name=author]');
+const form = document.querySelector('.popup__infosave');
+const nameNone = document.querySelector('input[name="area"]');
+const linkNone = document.querySelector('input[name="imagelink"]');
+const formAddCards = document.querySelector('.popup__infosave_type_addcard');
+const popupImageOpen = document.querySelector('.popup_type_image');
+const popupImageClose = document.querySelector('.popup__close_type_image');
 
 const initialCards = [
     {
@@ -52,38 +52,29 @@ initialCards.forEach(function (el, i) {
     cardsElement.querySelector('.cards__title').textContent = el.name;
     cardsTable.append(cardsElement);
 })
-cardsLike();
-cardsDelete();
-cardsFullOpen();
 
-function cardsLike() {
-    const cardsLikeIcon = document.querySelectorAll('.cards__like');
-    cardsLikeIcon.forEach((el) => {
-        el.addEventListener('click', function (evt) {
-            evt.target.classList.toggle('cards__like_active');
-        })
+let cardsLikeIcon = document.querySelectorAll('.cards__like');
+cardsLikeIcon.forEach((icon) => {
+    icon.addEventListener('click', ({ target }) => {
+        target.classList.toggle('cards__like_active');
     })
-}
+})
 
-function cardsDelete() {
-    const cardsDeleteIcon = document.querySelectorAll('.cards__delete');
-    cardsDeleteIcon.forEach((el, i) => {
-        el.addEventListener('click', function (evt) {
-            evt.target.closest('.cards__card').remove();
-        })
+let cardsDeleteIcon = document.querySelectorAll('.cards__delete');
+cardsDeleteIcon.forEach((icon) => {
+    icon.addEventListener('click', ({ target }) => {
+        target.closest('.cards__card').remove();
     })
-}
+})
 
-function cardsFullOpen() {
-    const popupImageOpen1 = document.querySelectorAll('.cards__fullphoto');
-    popupImageOpen1.forEach((el) => {
-        el.addEventListener('click', function (evt) {
-            popupImageOpen.classList.add('show');
-            document.querySelector('.popup__image').src = el.querySelector('.cards__photo').src;
-            document.querySelector('.popup__subtitle').textContent = el.nextElementSibling.querySelector('.cards__title').textContent;
-        })
+let buttonPhoto = document.querySelectorAll('.cards__fullphoto');
+buttonPhoto.forEach((el) => {
+    el.addEventListener('click', () => {
+        popupImageOpen.classList.add('show');
+        document.querySelector('.popup__image').src = el.querySelector('.cards__photo').src;
+        document.querySelector('.popup__subtitle').textContent = el.nextElementSibling.querySelector('.cards__title').textContent;
     })
-}
+})
 
 function toggleModal(modal) {
     modal.classList.toggle('show');
@@ -102,10 +93,18 @@ function createCards(event) {
     cardsElement.querySelector('.cards__photo').src = linkNone.value;
     cardsElement.querySelector('.cards__title').textContent = nameNone.value;
     cardsTable.prepend(cardsElement);
+    cardsLikeIcon = document.querySelector('.cards__like').addEventListener('click', ({ target }) => {
+        target.classList.toggle('cards__like_active');
+    });
+    cardsDeleteIcon = document.querySelector('.cards__delete').addEventListener('click', ({ target }) => {
+        target.closest('.cards__card').remove();
+    });
+    buttonPhoto = document.querySelector('.cards__fullphoto').addEventListener('click', () => {
+        popupImageOpen.classList.add('show');
+        document.querySelector('.popup__image').src = document.querySelector('.cards__photo').src;
+        document.querySelector('.popup__subtitle').textContent = document.querySelector('.cards__title').textContent;
+    });
     toggleModal(popupAddCard);
-    cardsLike();
-    cardsDelete();
-    cardsFullOpen();
 }
 
 function invisText(event) {
