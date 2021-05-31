@@ -2,16 +2,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 430px;
     margin: 0;
     background-color: white;
     color: black;
     border-radius: 10px;
-}
-
-@media screen and (max-width: 767px) {
-    .popup__container {
-        margin: 0;
-        width: 282px;
-    }
 }

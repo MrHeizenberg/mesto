@@ -26,48 +26,7 @@
             </section>
 
             <section class="cards">
-                <article class="cards__card">
-                    <img src="./images/Karach.png" alt="Карачаевск" class="cards__photo">
-                    <div class="cards__description">
-                        <h2 class="cards__title">Карачаевск</h2>
-                        <button type="button" class="cards__like"></button>
-                    </div>
-                </article>
-                <article class="cards__card">
-                    <img src="./images/Elbrus.png" alt="Эльбрус" class="cards__photo">
-                    <div class="cards__description">
-                        <h2 class="cards__title">Гора Эльбрус</h2>
-                        <button type="button" class="cards__like"></button>
-                    </div>
-                </article>
-                <article class="cards__card">
-                    <img src="./images/Dombai.png" alt="Домбай" class="cards__photo">
-                    <div class="cards__description">
-                        <h2 class="cards__title">Домбай</h2>
-                        <button type="button" class="cards__like"></button>
-                    </div>
-                </article>
-                <article class="cards__card">
-                    <img src="./images/Elbrus.png" alt="Эльбрус" class="cards__photo">
-                    <div class="cards__description">
-                        <h2 class="cards__title">Гора Эльбрус</h2>
-                        <button type="button" class="cards__like"></button>
-                    </div>
-                </article>
-                <article class="cards__card">
-                    <img src="./images/Dombai.png" alt="Домбай" class="cards__photo">
-                    <div class="cards__description">
-                        <h2 class="cards__title">Домбай</h2>
-                        <button type="button" class="cards__like"></button>
-                    </div>
-                </article>
-                <article class="cards__card">
-                    <img src="./images/Karach.png" alt="Карачаево-Черкессия" class="cards__photo">
-                    <div class="cards__description">
-                        <h2 class="cards__title">Карачаево-Черкессия</h2>
-                        <button type="button" class="cards__like"></button>
-                    </div>
-                </article>
+        
             </section>
         </main>
 
@@ -75,8 +34,8 @@
             <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
         </footer>
 
-        <div class="popup">
-            <div class="popup__container">
+        <div class="popup popup_type_edit">
+            <div class="popup__container popup__container_type_edit">
                 <button type="button" class="popup__close"></button>  
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <form name="infosave" class="popup__infosave">
@@ -86,6 +45,37 @@
                 </form>
             </div>
         </div>
+
+        <div class="popup popup_type_addcard">
+            <div class="popup__container popup__container_type_addcard">
+                <button type="button" class="popup__close popup__close_type_addcard"></button>  
+                <h2 class="popup__title popup__title_type_addcard">Новое место</h2>
+                <form name="infosave" class="popup__infosave popup__infosave_type_addcard">
+                    <input  type="text" name="area" class="popup__text popup__text_type_addcard" placeholder="Название">
+                    <input  type="text" name="imagelink" class="popup__text popup__text_type_addcard" placeholder="Ссылка на картинку">
+                    <input type="submit" class="popup__save" value = "Создать">
+                </form>
+            </div>
+        </div>
+
+        <div class="popup popup_type_image">
+            <div class="popup__container popup__container_type_image">
+                <button type="button" class="popup__close popup__close_type_image"></button>
+                <img class="popup__image">  
+                <p class="popup__subtitle"></p>
+            </div>
+        </div>
+
+        <template id="cards">
+            <article class="cards__card">
+            <button type = "button" class="cards__fullphoto"><img class="cards__photo"></button>
+            <div class="cards__description">
+                <h2 class="cards__title"></h2>
+                <button type="button" class="cards__like"></button>
+            </div>
+            <button type="button" class="cards__delete"></button>
+            </article>
+    </template>
 
         <script src="./scripts/main.js"></script>
 
