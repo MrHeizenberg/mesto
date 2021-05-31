@@ -12,6 +12,8 @@ let form = document.querySelector('.popup__infosave');
 let nameNone = document.querySelector('input[name="area"]');
 let linkNone = document.querySelector('input[name="imagelink"]');
 let formAddCards = document.querySelector('.popup__infosave_type_addcard');
+let popupImageOpen = document.querySelector('.popup_type_image');
+let popupImageClose = document.querySelector('.popup__close_type_image');
 
 const initialCards = [
     {
@@ -43,24 +45,48 @@ const initialCards = [
 const cardsTemplate = document.querySelector('#cards').content;
 const cardsTable = document.querySelector('.cards');
 
-
-initialCards.forEach(function(el,i) {
+initialCards.forEach(function (el, i) {
     const cardsElement = cardsTemplate.cloneNode(true);
-    cardsElement.querySelector('.cards__photo').src = initialCards[i].link;
-    cardsElement.querySelector('.cards__photo').alt = initialCards[i].name;
-    cardsElement.querySelector('.cards__title').textContent = initialCards[i].name;
+    cardsElement.querySelector('.cards__photo').src = el.link;
+    cardsElement.querySelector('.cards__photo').alt = el.name;
+    cardsElement.querySelector('.cards__title').textContent = el.name;
     cardsTable.append(cardsElement);
 })
+cardsLike();
+cardsDelete();
+cardsFullOpen();
 
-const cardsDelete = document.querySelectorAll('.cards__delete');
-cardsDelete.forEach((el,i) => {
-    cardsDelete[i].addEventListener('click', function (evt) {
-        evt.target.closest('.cards__card').remove();
+function cardsLike() {
+    const cardsLikeIcon = document.querySelectorAll('.cards__like');
+    cardsLikeIcon.forEach((el) => {
+        el.addEventListener('click', function (evt) {
+            evt.target.classList.toggle('cards__like_active');
+        })
     })
-})
+}
+
+function cardsDelete() {
+    const cardsDeleteIcon = document.querySelectorAll('.cards__delete');
+    cardsDeleteIcon.forEach((el, i) => {
+        el.addEventListener('click', function (evt) {
+            evt.target.closest('.cards__card').remove();
+        })
+    })
+}
+
+function cardsFullOpen() {
+    const popupImageOpen1 = document.querySelectorAll('.cards__fullphoto');
+    popupImageOpen1.forEach((el) => {
+        el.addEventListener('click', function (evt) {
+            popupImageOpen.classList.add('show');
+            document.querySelector('.popup__image').src = el.querySelector('.cards__photo').src;
+            document.querySelector('.popup__subtitle').textContent = el.nextElementSibling.querySelector('.cards__title').textContent;
+        })
+    })
+}
 
 function toggleModal(modal) {
-    modal.classList.toggle('popup_open');
+    modal.classList.toggle('show');
 }
 
 function saveFormProfile(event) {
@@ -74,13 +100,13 @@ function createCards(event) {
     event.preventDefault();
     const cardsElement = cardsTemplate.cloneNode(true);
     cardsElement.querySelector('.cards__photo').src = linkNone.value;
-    console.log(linkNone.value);
     cardsElement.querySelector('.cards__title').textContent = nameNone.value;
     cardsTable.prepend(cardsElement);
     toggleModal(popupAddCard);
+    cardsLike();
+    cardsDelete();
+    cardsFullOpen();
 }
-
-let cardsLike = document.querySelectorAll('.cards__like');
 
 function invisText(event) {
     if (event.target === nameNone) {
@@ -94,19 +120,16 @@ function invisText(event) {
     else linkNone.placeholder = 'Ссылка на картинку';
 }
 
-cardsLike.forEach((el,i) => {
-    cardsLike[i].addEventListener('click', function toggle(evt) {
-        evt.target.classList.toggle('cards__like_active');
-    })});
-
 popupEditOpen.addEventListener('click', () => {
     nameInput.value = author.textContent;
     jobInput.value = descriptionAuthor.textContent;
-    toggleModal(popupEdit)});
+    toggleModal(popupEdit)
+});
 popupEditClose.addEventListener('click', () => toggleModal(popupEdit));
 
-popupAddCardOpen.addEventListener('click', () => {toggleModal(popupAddCard)});
+popupAddCardOpen.addEventListener('click', () => toggleModal(popupAddCard));
 popupAddCardClose.addEventListener('click', () => toggleModal(popupAddCard));
+popupImageClose.addEventListener('click', () => toggleModal(popupImageOpen));
 
 popupAddCard.addEventListener('click', (event) => invisText(event));
 

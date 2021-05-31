@@ -35,7 +35,7 @@
         </footer>
 
         <div class="popup popup_type_edit">
-            <div class="popup__container">
+            <div class="popup__container popup__container_type_edit">
                 <button type="button" class="popup__close"></button>  
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <form name="infosave" class="popup__infosave">
@@ -47,7 +47,7 @@
         </div>
 
         <div class="popup popup_type_addcard">
-            <div class="popup__container">
+            <div class="popup__container popup__container_type_addcard">
                 <button type="button" class="popup__close popup__close_type_addcard"></button>  
                 <h2 class="popup__title popup__title_type_addcard">Новое место</h2>
                 <form name="infosave" class="popup__infosave popup__infosave_type_addcard">
@@ -58,9 +58,17 @@
             </div>
         </div>
 
+        <div class="popup popup_type_image">
+            <div class="popup__container popup__container_type_image">
+                <button type="button" class="popup__close popup__close_type_image"></button>
+                <img class="popup__image">  
+                <p class="popup__subtitle"></p>
+            </div>
+        </div>
+
         <template id="cards">
             <article class="cards__card">
-            <img class="cards__photo">
+            <button type = "button" class="cards__fullphoto"><img class="cards__photo"></button>
             <div class="cards__description">
                 <h2 class="cards__title"></h2>
                 <button type="button" class="cards__like"></button>
