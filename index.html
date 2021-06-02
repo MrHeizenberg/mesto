@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,77 +8,78 @@
     <link rel="stylesheet" href="./pages/index.css">
     <title>Mesto</title>
 </head>
+
 <body class="page">
 
-        <header class="header root">
-            <img src="./images/Vector.svg" alt="Лого" class="header__logo">
-        </header>
+    <header class="header root">
+        <img src="./images/Vector.svg" alt="Лого" class="header__logo">
+    </header>
 
-        <main class="content root">
+    <main class="content root">
 
-            <section class="profile">
-                <img src="./images/Avatar.png" alt="Аватар" class="profile__avatar">
-                <div class="profile__info">
-                    <h1 class="profile__title">Жак-Ив Кусто</h1>
-                    <p class="profile__subtitle">Исследователь океана</p>
-                    <button type = "button" class="profile__edit"></button>
-                </div>
-                <button type = "button" class = "profile__add"></button>
-            </section>
-
-            <section class="cards">
-        
-            </section>
-        </main>
-
-        <footer class="footer root">
-            <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
-        </footer>
-
-        <div class="popup popup_type_edit">
-            <div class="popup__container popup__container_type_edit">
-                <button type="button" class="popup__close"></button>  
-                <h2 class="popup__title">Редактировать профиль</h2>
-                <form name="infosave" class="popup__infosave">
-                    <input  type="text" name="author" class="popup__text">
-                    <input  type="text" name="description" class="popup__text">
-                    <input type="submit" class="popup__save" value = "Сохранить">
-                </form>
+        <section class="profile">
+            <img src="./images/Avatar.png" alt="Аватар" class="profile__avatar">
+            <div class="profile__info">
+                <h1 class="profile__title">Жак-Ив Кусто</h1>
+                <p class="profile__subtitle">Исследователь океана</p>
+                <button type="button" class="profile__edit"></button>
             </div>
-        </div>
+            <button type="button" class="profile__add"></button>
+        </section>
 
-        <div class="popup popup_type_addcard">
-            <div class="popup__container popup__container_type_addcard">
-                <button type="button" class="popup__close popup__close_type_addcard"></button>  
-                <h2 class="popup__title popup__title_type_addcard">Новое место</h2>
-                <form name="infosave" class="popup__infosave popup__infosave_type_addcard">
-                    <input  type="text" name="area" class="popup__text popup__text_type_addcard" placeholder="Название">
-                    <input  type="text" name="imagelink" class="popup__text popup__text_type_addcard" placeholder="Ссылка на картинку">
-                    <input type="submit" class="popup__save" value = "Создать">
-                </form>
-            </div>
-        </div>
+        <section class="cards">
 
-        <div class="popup popup_type_image">
-            <div class="popup__container popup__container_type_image">
-                <button type="button" class="popup__close popup__close_type_image"></button>
-                <img class="popup__image">  
-                <p class="popup__subtitle"></p>
-            </div>
-        </div>
+        </section>
+    </main>
 
-        <template id="cards">
-            <article class="cards__card">
-            <button type = "button" class="cards__fullphoto"><img class="cards__photo"></button>
+    <footer class="footer root">
+        <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+    </footer>
+
+    <div class="popup popup_type_edit">
+        <div class="popup__container popup__container_type_edit">
+            <button type="button" class="popup__close popup__close_type_edit"></button>
+            <h2 class="popup__title">Редактировать профиль</h2>
+            <form name="infosave-edit" class="popup__infosave popup__infosave_type_edit">
+                <input type="text" name="author" class="popup__text" placeholder="Автор" required>
+                <input type="text" name="description" class="popup__text" placeholder="Описание" required>
+                <input type="submit" class="popup__save" value="Сохранить">
+            </form>
+        </div>
+    </div>
+
+    <div class="popup popup_type_addcard">
+        <div class="popup__container popup__container_type_addcard">
+            <button type="button" class="popup__close popup__close_type_addcard"></button>
+            <h2 class="popup__title popup__title_type_addcard">Новое место</h2>
+            <form name="infosave-add" class="popup__infosave popup__infosave_type_addcard">
+                <input type="text" name="area" class="popup__text" placeholder="Название" required>
+                <input type="url" name="imagelink" class="popup__text" placeholder="Ссылка на картинку" required> 
+                <input type="submit" class="popup__save" value="Создать">
+            </form>
+        </div>
+    </div>
+
+    <div class="popup popup_type_image">
+        <div class="popup__container popup__container_type_image">
+            <button type="button" class="popup__close popup__close_type_image"></button>
+            <img class="popup__image" src = "#" alt = "#">
+            <p class="popup__subtitle"></p>
+        </div>
+    </div>
+
+    <template id="cards">
+        <article class="cards__card">
+            <button type="button" class="cards__fullphoto"><img class="cards__photo"></button>
             <div class="cards__description">
                 <h2 class="cards__title"></h2>
                 <button type="button" class="cards__like"></button>
             </div>
             <button type="button" class="cards__delete"></button>
-            </article>
+        </article>
     </template>
 
-        <script src="./scripts/main.js"></script>
+    <script src="./scripts/main.js"></script>
 
 </body>
 </html>
