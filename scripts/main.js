@@ -2,13 +2,13 @@ const popupEditOpen = document.querySelector('.profile__edit');
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAddCardOpen = document.querySelector('.profile__add');
 const popupAddCard = document.querySelector('.popup_type_addcard');
-const popupEditClose = document.querySelector('.popup__close');
+const popupEditClose = document.querySelector('.popup__close_type_edit');
 const popupAddCardClose = document.querySelector('.popup__close_type_addcard');
 const author = document.querySelector('.profile__title');
 const descriptionAuthor = document.querySelector('.profile__subtitle');
 const jobInput = document.querySelector('input[name=description]');
 const nameInput = document.querySelector('input[name=author]');
-const form = document.querySelector('.popup__infosave');
+const form = document.querySelector('.popup__infosave_type_edit');
 const nameNone = document.querySelector('input[name="area"]');
 const linkNone = document.querySelector('input[name="imagelink"]');
 const formAddCards = document.querySelector('.popup__infosave_type_addcard');
@@ -73,10 +73,11 @@ function createCard(el) {
     cardsElement.querySelector('.cards__delete').addEventListener('click', ({ target }) => {
         target.closest('.cards__card').remove();
     });
-    cardsElement.querySelector('.cards__fullphoto').addEventListener('click', () => {
+    cardsElement.querySelector('.cards__fullphoto').addEventListener('click', (event) => {
         toggleModal(popupImageOpen);
-        fullImage.src = document.querySelector('.cards__photo').src;
-        fullImageDescription.textContent = document.querySelector('.cards__title').textContent;
+        fullImage.src = event.target.src;
+        fullImage.alt = event.target.closest('.cards__card').querySelector('.cards__title').textContent;
+        fullImageDescription.textContent = event.target.closest('.cards__card').querySelector('.cards__title').textContent;
     });
     return (cardsElement);
 }
@@ -95,7 +96,7 @@ popupImageClose.addEventListener('click', () => toggleModal(popupImageOpen));
 form.addEventListener('submit', saveFormProfile);
 formAddCards.addEventListener('submit', (event) => {
     event.preventDefault();
-    let el = {
+    const el = {
         name: '',
         link: ''
     };
