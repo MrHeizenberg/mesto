@@ -8,7 +8,7 @@ const author = document.querySelector('.profile__title');
 const descriptionAuthor = document.querySelector('.profile__subtitle');
 const jobInput = document.querySelector('input[name=description]');
 const nameInput = document.querySelector('input[name=author]');
-const form = document.querySelector('.popup__infosave_type_edit');
+const formEdit = document.querySelector('.popup__infosave_type_edit');
 const nameNone = document.querySelector('input[name="area"]');
 const linkNone = document.querySelector('input[name="imagelink"]');
 const formAddCards = document.querySelector('.popup__infosave_type_addcard');
