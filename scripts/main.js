@@ -93,7 +93,7 @@ popupAddCardOpen.addEventListener('click', () => toggleModal(popupAddCard));
 popupAddCardClose.addEventListener('click', () => toggleModal(popupAddCard));
 popupImageClose.addEventListener('click', () => toggleModal(popupImageOpen));
 
-form.addEventListener('submit', saveFormProfile);
+formEdit.addEventListener('submit', saveFormProfile);
 formAddCards.addEventListener('submit', (event) => {
     event.preventDefault();
     const el = {
