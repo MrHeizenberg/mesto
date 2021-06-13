@@ -12,7 +12,7 @@ const formEdit = document.querySelector('.popup__infosave_type_edit');
 const nameNone = document.querySelector('input[name="area"]');
 const linkNone = document.querySelector('input[name="imagelink"]');
 const formAddCards = document.querySelector('.popup__infosave_type_addcard');
-const popupImageOpen = document.querySelector('.popup_type_image');
+const popupImage = document.querySelector('.popup_type_image');
 const popupImageClose = document.querySelector('.popup__close_type_image');
 const fullImage = document.querySelector('.popup__image');
 const fullImageDescription = document.querySelector('.popup__subtitle');
@@ -47,11 +47,12 @@ const initialCards = [
 const cardsTemplate = document.querySelector('#cards').content;
 const cardsTable = document.querySelector('.cards');
 
-initialCards.forEach(function(el) {
+initialCards.forEach(function (el) {
     cardsTable.append(createCard(el));
 })
 
 function toggleModal(modal) {
+    document.removeEventListener('keydown', handlerOfEsc);
     modal.classList.toggle('popup_visible_on');
 }
 
@@ -60,7 +61,7 @@ function saveFormProfile(event) {
     author.textContent = nameInput.value;
     descriptionAuthor.textContent = jobInput.value;
     toggleModal(popupEdit);
-} 
+}
 
 function createCard(el) {
     cardsElement = cardsTemplate.cloneNode(true);
@@ -74,7 +75,8 @@ function createCard(el) {
         target.closest('.cards__card').remove();
     });
     cardsElement.querySelector('.cards__fullphoto').addEventListener('click', (event) => {
-        toggleModal(popupImageOpen);
+        toggleModal(popupImage);
+        document.addEventListener('keydown', handlerOfEsc);
         fullImage.src = event.target.src;
         fullImage.alt = event.target.closest('.cards__card').querySelector('.cards__title').textContent;
         fullImageDescription.textContent = event.target.closest('.cards__card').querySelector('.cards__title').textContent;
@@ -85,13 +87,49 @@ function createCard(el) {
 popupEditOpen.addEventListener('click', () => {
     nameInput.value = author.textContent;
     jobInput.value = descriptionAuthor.textContent;
+    nameInput.setCustomValidity('');
+    jobInput.setCustomValidity('');
+    document.getElementById('author-error').textContent = nameInput.validationMessage;
+    document.getElementById('description-error').textContent = nameInput.validationMessage;
+    document.querySelector('.popup__save_edit').classList.remove('popup__save_disabled');
+    document.getElementById('author').classList.remove('popup__text_type_error');
+    document.getElementById('description').classList.remove('popup__text_type_error');
     toggleModal(popupEdit);
+    document.addEventListener('keydown', handlerOfEsc);
 });
-popupEditClose.addEventListener('click', () => toggleModal(popupEdit));
 
-popupAddCardOpen.addEventListener('click', () => toggleModal(popupAddCard));
-popupAddCardClose.addEventListener('click', () => toggleModal(popupAddCard));
-popupImageClose.addEventListener('click', () => toggleModal(popupImageOpen));
+function handlerOfEsc(event) {
+    if (event.code === 'Escape') {
+        toggleModal(document.querySelector('.popup_visible_on'));
+    }
+}
+
+popupEdit.addEventListener('click', (event) => {
+    if ((event.target === event.currentTarget) || (event.target.classList.contains('popup__close'))) {
+        toggleModal(popupEdit)
+    }
+});
+
+popupAddCardOpen.addEventListener('click', () => {
+    const Valid = formAddCards.checkValidity();
+    if (!Valid) {
+        document.querySelector('.popup__save_add').classList.add('popup__save_disabled');
+    }
+    toggleModal(popupAddCard);
+    document.addEventListener('keydown', handlerOfEsc);
+});
+
+popupAddCard.addEventListener('click', (event) => {
+    if ((event.target === event.currentTarget) || (event.target.classList.contains('popup__close'))) {
+        toggleModal(popupAddCard);
+    }
+});
+
+popupImage.addEventListener('click', (event) => {
+    if ((event.target === event.currentTarget) || (event.target.classList.contains('popup__close'))) {
+        toggleModal(popupImage);
+    }
+});
 
 formEdit.addEventListener('submit', saveFormProfile);
 formAddCards.addEventListener('submit', (event) => {
@@ -103,7 +141,6 @@ formAddCards.addEventListener('submit', (event) => {
     el.name = nameNone.value;
     el.link = linkNone.value;
     cardsTable.prepend(createCard(el));
-    nameNone.value = '';
-    linkNone.value = '';
+    formAddCards.reset();
     toggleModal(popupAddCard);
 });
