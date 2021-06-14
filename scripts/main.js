@@ -16,6 +16,8 @@ const popupImage = document.querySelector('.popup_type_image');
 const popupImageClose = document.querySelector('.popup__close_type_image');
 const fullImage = document.querySelector('.popup__image');
 const fullImageDescription = document.querySelector('.popup__subtitle');
+const editPopupSaveButton = document.querySelector('.popup__save_edit');
+const addPopupSaveButton = document.querySelector('.popup__save_add');
 
 const initialCards = [
     {
@@ -52,8 +54,12 @@ initialCards.forEach(function (el) {
 })
 
 function toggleModal(modal) {
-    document.removeEventListener('keydown', handlerOfEsc);
     modal.classList.toggle('popup_visible_on');
+    if (modal.classList.contains('popup_visible_on')) {
+        document.addEventListener('keydown', handlerOfEsc);
+    } else {
+        document.removeEventListener('keydown', handlerOfEsc);
+    }
 }
 
 function saveFormProfile(event) {
@@ -64,7 +70,7 @@ function saveFormProfile(event) {
 }
 
 function createCard(el) {
-    cardsElement = cardsTemplate.cloneNode(true);
+    const cardsElement = cardsTemplate.cloneNode(true);
     cardsElement.querySelector('.cards__photo').src = el.link;
     cardsElement.querySelector('.cards__photo').alt = el.name;
     cardsElement.querySelector('.cards__title').textContent = el.name;
@@ -76,10 +82,9 @@ function createCard(el) {
     });
     cardsElement.querySelector('.cards__fullphoto').addEventListener('click', (event) => {
         toggleModal(popupImage);
-        document.addEventListener('keydown', handlerOfEsc);
-        fullImage.src = event.target.src;
-        fullImage.alt = event.target.closest('.cards__card').querySelector('.cards__title').textContent;
-        fullImageDescription.textContent = event.target.closest('.cards__card').querySelector('.cards__title').textContent;
+        fullImage.src = el.link;
+        fullImage.alt = el.name;
+        fullImageDescription.textContent = el.name;
     });
     return (cardsElement);
 }
@@ -87,15 +92,9 @@ function createCard(el) {
 popupEditOpen.addEventListener('click', () => {
     nameInput.value = author.textContent;
     jobInput.value = descriptionAuthor.textContent;
-    nameInput.setCustomValidity('');
-    jobInput.setCustomValidity('');
-    document.getElementById('author-error').textContent = nameInput.validationMessage;
-    document.getElementById('description-error').textContent = nameInput.validationMessage;
-    document.querySelector('.popup__save_edit').classList.remove('popup__save_disabled');
-    document.getElementById('author').classList.remove('popup__text_type_error');
-    document.getElementById('description').classList.remove('popup__text_type_error');
+    editPopupSaveButton.classList.remove('popup__save_disabled');
+    editPopupSaveButton.removeAttribute('disabled');
     toggleModal(popupEdit);
-    document.addEventListener('keydown', handlerOfEsc);
 });
 
 function handlerOfEsc(event) {
@@ -112,11 +111,21 @@ popupEdit.addEventListener('click', (event) => {
 
 popupAddCardOpen.addEventListener('click', () => {
     const Valid = formAddCards.checkValidity();
+    const inputValid = nameNone.checkValidity();
+    const inputValid2 = linkNone.checkValidity();
     if (!Valid) {
-        document.querySelector('.popup__save_add').classList.add('popup__save_disabled');
+        addPopupSaveButton.classList.add('popup__save_disabled');
+        addPopupSaveButton.setAttribute('disabled', 'disabled');
+    } 
+    if (!inputValid && nameNone.value !== '') {
+        document.getElementById('area-error').textContent = nameNone.validationMessage;
+        nameNone.classList.add('popup__text_type_error');
+    }
+    if (!inputValid2 && linkNone.value !== '') {
+        document.getElementById('imagelink-error').textContent = linkNone.validationMessage;
+        linkNone.classList.add('popup__text_type_error');
     }
     toggleModal(popupAddCard);
-    document.addEventListener('keydown', handlerOfEsc);
 });
 
 popupAddCard.addEventListener('click', (event) => {
