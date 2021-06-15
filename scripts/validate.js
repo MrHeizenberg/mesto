@@ -1,10 +1,23 @@
 function enableValidation(obj) {
-    obj.forEach((form,i) => {
-        const forms = document.querySelector(obj[i].form);
-        const error = document.querySelector(obj[i].inputHideError);
-        error.addEventListener('click', () => hideError(obj[i],forms));
-        forms.addEventListener('input', (event) => handlerForInput(event, obj[i]))
-    }); 
+    const popups = document.querySelectorAll(obj.popup);
+    popups.forEach((popup) => {
+        if (popup.querySelector(obj.inputs) != null) {
+            const form = popup.querySelector(obj.form);
+            const error = popup.querySelector(obj.inputHideError);
+            form.addEventListener('input', (event) => handlerForInput(event, obj));
+            error.addEventListener('click', () => hideError(obj, form));
+            popup.addEventListener('click', (event) => {
+                if (event.target === event.currentTarget) {
+                    hideError(obj, form);
+                }
+            });
+            popup.addEventListener('keydown', (event) => {
+                if (event.code === 'Escape') {
+                    hideError(obj, form);
+                }
+            });
+        }
+    });
 };
 
 function handlerForInput(event, obj) {
@@ -19,7 +32,7 @@ function showError(input, form) {
     span.textContent = input.validationMessage;
 }
 
-function hideError(obj,form) {
+function hideError(obj, form) {
     const spans = form.querySelectorAll(obj.inputs)
     spans.forEach((el) => {
         el.classList.remove(obj.inputError);
@@ -29,7 +42,7 @@ function hideError(obj,form) {
 }
 
 function buttonDisabled(event, form, obj) {
-    const button = document.querySelector(obj.submitButton);
+    const button = form.querySelector(obj.submitButton);
     const isValid = form.checkValidity();
     const input = event.target;
     const isValidInput = input.checkValidity();
@@ -50,19 +63,12 @@ function buttonDisabled(event, form, obj) {
     }
 }
 
-enableValidation([{
-    form: '.popup__infosave_type_edit',
-    submitButton: '.popup__save_edit',
+enableValidation({
+    popup: '.popup',
+    form: '.popup__infosave',
+    submitButton: '.popup__save',
     inactiveButton: 'popup__save_disabled',
     inputs: '.popup__text',
     inputError: 'popup__text_type_error',
-    inputHideError: '.popup__close_type_edit'
-},
-{
-    form: '.popup__infosave_type_addcard',
-    submitButton: '.popup__save_add',
-    inactiveButton: 'popup__save_disabled',
-    inputs: '.popup__text',
-    inputError: 'popup__text_type_error',
-    inputHideError: '.popup__close_type_addcard'
-}]);
+    inputHideError: '.popup__close'
+});
