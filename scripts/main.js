@@ -92,6 +92,10 @@ function createCard(el) {
 popupEditOpen.addEventListener('click', () => {
     nameInput.value = author.textContent;
     jobInput.value = descriptionAuthor.textContent;
+    document.getElementById('author-error').textContent = nameInput.validationMessage;
+    document.getElementById('description-error').textContent = jobInput.validationMessage;
+    document.getElementById('author').classList.remove('popup__text_type_error'); 
+    document.getElementById('description').classList.remove('popup__text_type_error');
     editPopupSaveButton.classList.remove('popup__save_disabled');
     editPopupSaveButton.removeAttribute('disabled');
     toggleModal(popupEdit);
@@ -111,20 +115,10 @@ popupEdit.addEventListener('click', (event) => {
 
 popupAddCardOpen.addEventListener('click', () => {
     const Valid = formAddCards.checkValidity();
-    const inputValid = nameNone.checkValidity();
-    const inputValid2 = linkNone.checkValidity();
     if (!Valid) {
         addPopupSaveButton.classList.add('popup__save_disabled');
         addPopupSaveButton.setAttribute('disabled', 'disabled');
-    } 
-    if (!inputValid && nameNone.value !== '') {
-        document.getElementById('area-error').textContent = nameNone.validationMessage;
-        nameNone.classList.add('popup__text_type_error');
-    }
-    if (!inputValid2 && linkNone.value !== '') {
-        document.getElementById('imagelink-error').textContent = linkNone.validationMessage;
-        linkNone.classList.add('popup__text_type_error');
-    }
+    };
     toggleModal(popupAddCard);
 });
 
