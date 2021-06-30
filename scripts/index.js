@@ -1,3 +1,5 @@
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
 const popupEditOpen = document.querySelector('.profile__edit');
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAddCardOpen = document.querySelector('.profile__add');
@@ -18,6 +20,13 @@ const fullImage = document.querySelector('.popup__image');
 const fullImageDescription = document.querySelector('.popup__subtitle');
 const editPopupSaveButton = document.querySelector('.popup__save_edit');
 const addPopupSaveButton = document.querySelector('.popup__save_add');
+const validConfig = {
+    form: '.popup__infosave',
+    submitButton: '.popup__save',
+    inactiveButton: 'popup__save_disabled',
+    inputs: '.popup__text',
+    inputError: 'popup__text_type_error'
+};
 
 const initialCards = [
     {
@@ -49,6 +58,9 @@ const initialCards = [
 const cardsTemplate = document.querySelector('#cards').content;
 const cardsTable = document.querySelector('.cards');
 
+const formEditValid = new FormValidator(validConfig,formEdit).enableValidation();
+const formAddCardsValid = new FormValidator(validConfig,formAddCards).enableValidation();
+
 initialCards.forEach(function (el) {
     cardsTable.append(createCard(el));
 })
@@ -70,23 +82,8 @@ function saveFormProfile(event) {
 }
 
 function createCard(el) {
-    const cardsElement = cardsTemplate.cloneNode(true);
-    cardsElement.querySelector('.cards__photo').src = el.link;
-    cardsElement.querySelector('.cards__photo').alt = el.name;
-    cardsElement.querySelector('.cards__title').textContent = el.name;
-    cardsElement.querySelector('.cards__like').addEventListener('click', ({ target }) => {
-        target.classList.toggle('cards__like_active');
-    });
-    cardsElement.querySelector('.cards__delete').addEventListener('click', ({ target }) => {
-        target.closest('.cards__card').remove();
-    });
-    cardsElement.querySelector('.cards__fullphoto').addEventListener('click', (event) => {
-        toggleModal(popupImage);
-        fullImage.src = el.link;
-        fullImage.alt = el.name;
-        fullImageDescription.textContent = el.name;
-    });
-    return (cardsElement);
+    const card = new Card(el.name,el.link, cardsTemplate, toggleModal,popupImage,fullImage,fullImageDescription).createCard();
+    return (card);
 }
 
 popupEditOpen.addEventListener('click', () => {
