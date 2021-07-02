@@ -1,29 +1,36 @@
+import {toggleAdd,popupImage,fullImage,fullImageDescription} from './index.js';
 class Card {
     #cardtitle;
     #cardlink;
     #template;
     #card;
-    #toggleModal;
+    #cardImage;
+    #toggleAdd;
     #popupImage;
     #fullImage;
     #fullImageDescription;
-    constructor (cardtitle, cardlink, cardselector, toggleModal, popupImage, fullImage, fullImageDescription) {
+    constructor (cardtitle, cardlink, cardselector) {
         this.#cardtitle = cardtitle;
         this.#cardlink = cardlink;
         this.#template = cardselector;
-        this.#toggleModal = toggleModal;
+        this.#toggleAdd = toggleAdd;
         this.#popupImage = popupImage;
         this.#fullImage = fullImage;
         this.#fullImageDescription = fullImageDescription;
     }
 
-    createCard = () => {
+    #getTemplate = () => {
         this.#card = this.#template.cloneNode(true);
-        this.#card.querySelector('.cards__photo').src = this.#cardlink;
-        this.#card.querySelector('.cards__photo').alt = this.#cardtitle;
+    }
+
+    createCard = () => {
+        this.#getTemplate();
+        this.#cardImage = this.#card.querySelector('.cards__photo');
+        this.#cardImage.src = this.#cardlink;
+        this.#cardImage.alt = this.#cardtitle;
         this.#card.querySelector('.cards__title').textContent = this.#cardtitle;
         this.#setListeners();
-        return(this.#card);
+        return this.#card;
     }
 
     #setListeners = () => {
@@ -41,7 +48,7 @@ class Card {
     }
 
     #cardPreview = () => {
-        this.#toggleModal(this.#popupImage);
+        this.#toggleAdd(this.#popupImage);
         this.#fullImage.src = this.#cardlink;
         this.#fullImage.alt = this.#cardtitle;
         this.#fullImageDescription.textContent = this.#cardtitle;
