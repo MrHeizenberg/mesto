@@ -80,7 +80,7 @@ function saveFormProfile(event) {
 }
 
 function createCard(el) {
-    const card = new Card(el.name, el.link, cardsTemplate).createCard();
+    const card = new Card(el.name, el.link, '#cards').createCard();
     return card;
 }
 

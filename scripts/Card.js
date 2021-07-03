@@ -20,7 +20,10 @@ class Card {
     }
 
     #getTemplate = () => {
-        this.#card = this.#template.cloneNode(true);
+        this.#card = document
+        .querySelector(this.#template)
+        .content
+        .cloneNode(true);
     }
 
     createCard = () => {
