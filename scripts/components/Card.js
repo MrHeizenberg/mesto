@@ -1,22 +1,14 @@
-import {toggleAdd,popupImage,fullImage,fullImageDescription} from './index.js';
 class Card {
     #cardtitle;
     #cardlink;
     #template;
     #card;
     #cardImage;
-    #toggleAdd;
-    #popupImage;
-    #fullImage;
-    #fullImageDescription;
-    constructor (cardtitle, cardlink, cardselector) {
+    constructor (cardtitle, cardlink, cardselector, handleCardClick) {
         this.#cardtitle = cardtitle;
         this.#cardlink = cardlink;
         this.#template = cardselector;
-        this.#toggleAdd = toggleAdd;
-        this.#popupImage = popupImage;
-        this.#fullImage = fullImage;
-        this.#fullImageDescription = fullImageDescription;
+        this.handleCardClick = handleCardClick;
     }
 
     #getTemplate = () => {
@@ -39,7 +31,7 @@ class Card {
     #setListeners = () => {
         this.#card.querySelector('.cards__like').addEventListener('click', this.#onLike);
         this.#card.querySelector('.cards__delete').addEventListener('click', this.#cardDelete);
-        this.#card.querySelector('.cards__fullphoto').addEventListener('click', this.#cardPreview);
+        this.#card.querySelector('.cards__fullphoto').addEventListener('click', () => {this.handleCardClick(this.#cardtitle,this.#cardlink)});
     }
 
     #onLike = () => {
@@ -48,13 +40,6 @@ class Card {
 
     #cardDelete = () => {
         event.target.closest('.cards__card').remove();
-    }
-
-    #cardPreview = () => {
-        this.#toggleAdd(this.#popupImage);
-        this.#fullImage.src = this.#cardlink;
-        this.#fullImage.alt = this.#cardtitle;
-        this.#fullImageDescription.textContent = this.#cardtitle;
     }
 }
 

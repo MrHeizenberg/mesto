@@ -1,0 +1,19 @@
+{
+  "name": "yandex",
+  "version": "1.0.0",
+  "description": "**Описание**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrHeizenberg/mesto.git"
+  },
+  "author": "Nikolay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MrHeizenberg/mesto/issues"
+  },
+  "homepage": "https://github.com/MrHeizenberg/mesto#readme"
+}
