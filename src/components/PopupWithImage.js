@@ -1,4 +1,4 @@
-import {fullImage,fullImageDescription} from './index.js';
+import {fullImage,fullImageDescription} from '../index.js';
 import Popup from './Popup.js';
 class PopupWithImage extends Popup {
     #popupSelector;
