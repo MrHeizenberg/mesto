@@ -95,7 +95,7 @@ popupAddCardOpen.addEventListener('click', () => {
 formEdit.addEventListener('submit', saveFormProfile);
 
 new PopupWithForm('.popup_type_addcard',(el) => {
-    cardsTable.prepend(new Card(el.name, el.link, '#cards').createCard());
+    cardsTable.prepend(new Card(el.name, el.link, '#cards',(() => {new PopupWithImage('.popup_type_image',el.name,el.link).open()})).createCard());
 }).setEventListeners();
 
 export { fullImage, fullImageDescription };
