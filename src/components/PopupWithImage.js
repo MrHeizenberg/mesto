@@ -1,26 +1,17 @@
-import {fullImage,fullImageDescription} from '../index.js';
 import Popup from './Popup.js';
 class PopupWithImage extends Popup {
-    #popupSelector;
-    #cardtitle;
-    #cardlink
-    #fullImage;
-    #fullImageDescription;
-    constructor(popupSelector,cardtitle,cardlink) {
+    constructor(popupSelector) {
         super(popupSelector);
-        this.#popupSelector = document.querySelector(popupSelector);
-        this.#fullImage = fullImage;
-        this.#fullImageDescription = fullImageDescription;
-        this.#cardtitle = cardtitle;
-        this.#cardlink = cardlink;
+        this._popupWindow = document.querySelector(popupSelector);
+        this._fullImage = this._popupWindow.querySelector('.popup__image');
+        this._fullImageDescription = this._popupWindow.querySelector('.popup__subtitle');
     }
 
-    open = () => {
-        this.#popupSelector.classList.add('popup_visible_on');
-        document.addEventListener('keydown', this.handleEscClose);
-        this.#fullImage.src = this.#cardlink;
-        this.#fullImage.alt = this.#cardtitle;
-        this.#fullImageDescription.textContent = this.#cardtitle;
+    open = (link,name) => {
+        super.open();
+        this._fullImage.src = link;
+        this._fullImage.alt = name;
+        this._fullImageDescription.textContent = name;
     }
 }
 

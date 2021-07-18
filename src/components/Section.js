@@ -1,24 +1,23 @@
 class Section {
-    #items;
-    #renderer;
-    #container;
-    #card;
     constructor({ items, renderer }, contSelector) {
-        this.#items = items;
-        this.#renderer = renderer;
-        this.#container = document.querySelector(contSelector);
+        this._items = items;
+        this._renderer = renderer;
+        this._container = document.querySelector(contSelector);
     }
 
     getCard = () => {
-        this.#items.forEach((item) => {
-            this.#card = this.#renderer(item);
-            this.#addItem(this.#card);
+        this._items.forEach((item) => {
+            this._card = this._renderer(item);
+            this._addItem(this._card);
         })
     }
 
-    #addItem = (card) => {
-        this.#container.append(card);
+    _addItem = (card) => {
+        this._container.append(card);
+    }
+
+    addItemFromForm = (card) => {
+        this._container.prepend(card);
     }
 }
-
 export default Section;

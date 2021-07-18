@@ -1,44 +1,39 @@
 class Card {
-    #cardtitle;
-    #cardlink;
-    #template;
-    #card;
-    #cardImage;
     constructor (cardtitle, cardlink, cardselector, handleCardClick) {
-        this.#cardtitle = cardtitle;
-        this.#cardlink = cardlink;
-        this.#template = cardselector;
+        this._cardtitle = cardtitle;
+        this._cardlink = cardlink;
+        this._template = cardselector;
         this.handleCardClick = handleCardClick;
     }
 
-    #getTemplate = () => {
-        this.#card = document
-        .querySelector(this.#template)
+    _getTemplate = () => {
+        this._card = document
+        .querySelector(this._template)
         .content
         .cloneNode(true);
     }
 
     createCard = () => {
-        this.#getTemplate();
-        this.#cardImage = this.#card.querySelector('.cards__photo');
-        this.#cardImage.src = this.#cardlink;
-        this.#cardImage.alt = this.#cardtitle;
-        this.#card.querySelector('.cards__title').textContent = this.#cardtitle;
-        this.#setListeners();
-        return this.#card;
+        this._getTemplate();
+        this._cardImage = this._card.querySelector('.cards__photo');
+        this._cardImage.src = this._cardlink;
+        this._cardImage.alt = this._cardtitle;
+        this._card.querySelector('.cards__title').textContent = this._cardtitle;
+        this._setListeners();
+        return this._card;
     }
 
-    #setListeners = () => {
-        this.#card.querySelector('.cards__like').addEventListener('click', this.#onLike);
-        this.#card.querySelector('.cards__delete').addEventListener('click', this.#cardDelete);
-        this.#card.querySelector('.cards__fullphoto').addEventListener('click', () => {this.handleCardClick(this.#cardtitle,this.#cardlink)});
+    _setListeners = () => {
+        this._card.querySelector('.cards__like').addEventListener('click', (event) => {this._onLike(event)});
+        this._card.querySelector('.cards__delete').addEventListener('click', (event) => {this._cardDelete(event)});
+        this._card.querySelector('.cards__fullphoto').addEventListener('click', () => {this.handleCardClick(this._cardtitle,this._cardlink)});
     }
 
-    #onLike = () => {
+    _onLike = (event) => {
         event.target.classList.toggle('cards__like_active');
     }
 
-    #cardDelete = () => {
+    _cardDelete = (event) => {
         event.target.closest('.cards__card').remove();
     }
 }

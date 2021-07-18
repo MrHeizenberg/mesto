@@ -1,37 +1,33 @@
 import Popup from './Popup.js';
 class PopupWithForm extends Popup {
-    #submitForm;
-    #popupSelector;
-    #form
-    #el;
     constructor(popupSelector, submitForm) {
         super(popupSelector);
-        this.#popupSelector = document.querySelector(popupSelector);
-        this.#form = document.forms['infosave-add'];
-        this.#submitForm = submitForm;
+        this._popupSelector = document.querySelector(popupSelector);
+        this._form = document.forms['infosave-add'];
+        this._submitForm = submitForm;
     }
 
-    #getInputValues = () => {
-        this.#el = {
-            name: '',
-            link: ''
-        }
-        this.#el.name = this.#form.elements['area'].value;
-        this.#el.link = this.#form.elements['imagelink'].value;
-        return this.#el;
+    _getInputValues = () => {
+        this._el = {};
+        this._inputs = this._form.querySelectorAll('input');
+        this._inputs.forEach(input => {
+            this._el[input.name] = input.value;
+        })
+        return this._el;
     }
 
     setEventListeners = () => {
-        this.#form.addEventListener('submit', () => {
-            this.#submitForm(this.#getInputValues());
+        super.setEventListeners();
+        this._form.addEventListener('submit', () => {
+            console.log(this._form)
+            this._submitForm(this._getInputValues());
             this.close();
         });
     }
 
     close = () => {
-        this.#popupSelector.classList.remove('popup_visible_on');
-        document.addEventListener('keydown', this.handleEscClose);
-        this.#form.reset();
+        super.close();
+        this._form.reset();
     }
 }
 
