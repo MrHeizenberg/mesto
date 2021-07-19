@@ -3,7 +3,7 @@ class PopupWithForm extends Popup {
     constructor(popupSelector, submitForm) {
         super(popupSelector);
         this._popupSelector = document.querySelector(popupSelector);
-        this._form = document.forms['infosave-add'];
+        this._form = this._popupSelector.querySelector('.popup__infosave');
         this._submitForm = submitForm;
     }
 
@@ -19,7 +19,6 @@ class PopupWithForm extends Popup {
     setEventListeners = () => {
         super.setEventListeners();
         this._form.addEventListener('submit', () => {
-            console.log(this._form)
             this._submitForm(this._getInputValues());
             this.close();
         });

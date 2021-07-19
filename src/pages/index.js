@@ -11,30 +11,31 @@ import {popupEditOpen,popupAddCardOpen,formEdit,formAddCards,validConfig,initial
 const profileValidation = new FormValidator(validConfig, formEdit);
 const cardFormValidation = new FormValidator(validConfig, formAddCards);
 const popupWithImage = new PopupWithImage('.popup_type_image');
-const popupProfile = new Popup('.popup_type_edit');
-const popupCardForm = new PopupWithForm('.popup_type_addcard');
+const popupProfile = new PopupWithForm('.popup_type_edit', (item) => {
+    userInfo.setUserInfo(item.author,item.description);
+});
+
+const popupCardForm = new PopupWithForm('.popup_type_addcard',(item) => {
+    section.addItemFromForm(createCard(item.area,item.imagelink));
+});
+
 const userInfo = new UserInfo('.profile__title','.profile__subtitle');
-profileValidation.enableValidation();
-cardFormValidation.enableValidation();
-new Section({
+const section = new Section({
     items: initialCards,
     renderer: (item) => {
-        return createCard(item);
+        return createCard(item.name,item.link);
     }
-}, '.cards').getCard();
+}, '.cards');
+
+section.getCard();
+profileValidation.enableValidation();
+cardFormValidation.enableValidation();
 popupProfile.setEventListeners();
 popupWithImage.setEventListeners();
+popupCardForm.setEventListeners();
 
-function saveFormProfile(event) {
-    event.preventDefault();
-    const name = formEdit.elements['author'].value;
-    const profession = formEdit.elements['description'].value;
-    userInfo.setUserInfo(name,profession);
-    popupProfile.close();
-}
-
-function createCard(item) {
-    const card = new Card(item.name, item.link, '#cards', (() => {popupWithImage.open(item.link,item.name)})).createCard();
+function createCard(name,link) {
+    const card = new Card(name, link, '#cards', (() => {popupWithImage.open(link,name)})).createCard();
     return card;
 }
 
@@ -51,14 +52,3 @@ popupAddCardOpen.addEventListener('click', () => {
     cardFormValidation.toggleButtonState();
     popupCardForm.open();
 });
-
-formEdit.addEventListener('submit', saveFormProfile);
-
-new PopupWithForm('.popup_type_addcard',(el) => {
-    new Section({
-        items: el,
-        renderer: (el) => {
-            new Card(el.area, el.imagelink, '#cards',(() => {popupWithImage.open(el.link,el.name)})).createCard()
-        }
-    }, '.cards').addItemFromForm(new Card(el.area, el.imagelink, '#cards',(() => {popupWithImage.open(el.link,el.name)})).createCard());
-}).setEventListeners();

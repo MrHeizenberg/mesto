@@ -5,12 +5,12 @@ class Popup {
 
     open() {
         this._popupWindow.classList.add('popup_visible_on');
-        document.addEventListener('keydown', (event) => {this.handleEscClose(event)});
+        document.addEventListener('keydown', this.handleEscClose);
     }
 
     close() {
         this._popupWindow.classList.remove('popup_visible_on');
-        document.addEventListener('keydown', (event) => {this.handleEscClose(event)});
+        document.addEventListener('keydown', this.handleEscClose);
     }
 
     handleEscClose = (event) => {
