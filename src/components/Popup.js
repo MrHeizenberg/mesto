@@ -10,7 +10,7 @@ class Popup {
 
     close() {
         this._popupWindow.classList.remove('popup_visible_on');
-        document.addEventListener('keydown', this.handleEscClose);
+        document.removeEventListener('keydown', this.handleEscClose);
     }
 
     handleEscClose = (event) => {

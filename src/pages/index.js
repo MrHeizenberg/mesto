@@ -40,8 +40,9 @@ function createCard(name,link) {
 }
 
 popupEditOpen.addEventListener('click', () => {
-    formEdit.elements['author'].value = userInfo.getUserInfo().name;
-    formEdit.elements['description'].value = userInfo.getUserInfo().profession;
+    const userData =userInfo.getUserInfo();
+    formEdit.elements['author'].value = userData.name;
+    formEdit.elements['description'].value = userData.profession;
     profileValidation.hideErrorWithOpen();
     profileValidation.toggleButtonState();
     popupProfile.open();
