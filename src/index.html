@@ -5,20 +5,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
     <title>Mesto</title>
 </head>
 
 <body class="page">
 
     <header class="header root">
-        <img src="./images/Vector.svg" alt="Лого" class="header__logo">
+        <img src="<%=require('./images/Vector.svg')%>" alt="Лого" class="header__logo">
     </header>
 
     <main class="content root">
 
         <section class="profile">
-            <img src="./images/Avatar.png" alt="Аватар" class="profile__avatar">
+            <img src="<%=require('./images/Avatar.png')%>" alt="Аватар" class="profile__avatar">
             <div class="profile__info">
                 <h1 class="profile__title">Жак-Ив Кусто</h1>
                 <p class="profile__subtitle">Исследователь океана</p>
@@ -49,7 +48,7 @@
                     <input id = "description" type="text" name="description" class="popup__text" placeholder="Описание" minlength="2" maxlength="200" required>
                     <span id = "description-error" class="popup__text-error"></span>
                 </fieldset>
-                <input type="submit" class="popup__save popup__save_edit" value="Сохранить">
+                <button type="submit" class="popup__save popup__save_edit">Сохранить</button>
             </form>
         </div>
     </div>
@@ -67,7 +66,7 @@
                     <input id = "imagelink" type="url" name="imagelink" class="popup__text" placeholder="Ссылка на картинку" required>
                     <span id = "imagelink-error" class="popup__text-error"></span>
                 </fieldset>
-                <input type="submit" class="popup__save popup__save_add" value="Создать">
+                <button type="submit" class="popup__save popup__save_add">Создать</button>
             </form>
         </div>
     </div>
@@ -90,9 +89,6 @@
             <button type="button" class="cards__delete"></button>
         </article>
     </template>
-
-    <script src="./scripts/main.js"></script>
-    <script src="./scripts/validate.js"></script>
 
 </body>
 </html>
