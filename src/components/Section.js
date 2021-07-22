@@ -1,6 +1,7 @@
 class Section {
     constructor({ items, renderer }, contSelector) {
         this._items = items;
+        console.log(items)
         this._renderer = renderer;
         this._container = document.querySelector(contSelector);
     }

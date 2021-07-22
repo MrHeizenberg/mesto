@@ -7,6 +7,11 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import {popupEditOpen,popupAddCardOpen,formEdit,formAddCards,validConfig,initialCards} from '../components/constants.js';
+import Api from '../components/Api.js';
+
+const options = "254f4d19-4cbe-4ebe-a16e-0232684f7a64"
+const api = new Api(options).getCards();
+console.log(api)
 
 const profileValidation = new FormValidator(validConfig, formEdit);
 const cardFormValidation = new FormValidator(validConfig, formAddCards);
@@ -21,7 +26,7 @@ const popupCardForm = new PopupWithForm('.popup_type_addcard',(item) => {
 
 const userInfo = new UserInfo('.profile__title','.profile__subtitle');
 const section = new Section({
-    items: initialCards,
+    items: api,
     renderer: (item) => {
         return createCard(item.name,item.link);
     }
