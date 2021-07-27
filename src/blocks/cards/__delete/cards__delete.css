@@ -11,6 +11,7 @@
     right: 15px;
     transition: opacity 0.3s ease;
     cursor: pointer;
+    display: none;
 }
 
 .cards__delete:hover {
