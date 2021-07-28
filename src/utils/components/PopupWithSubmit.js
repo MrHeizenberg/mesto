@@ -6,7 +6,7 @@ class PopupWithSubmit extends Popup {
 
     setEventListeners() {
         super.setEventListeners();
-        document.forms['infosave-delete'].addEventListener('submit', (event) => {
+        this._popupWindow.addEventListener('submit', (event) => {
             event.preventDefault();
             this._submitform()});
     }

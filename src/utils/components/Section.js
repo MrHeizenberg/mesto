@@ -5,18 +5,17 @@ class Section {
         this._container = document.querySelector(contSelector);
     }
 
-    getCard = () => {
+    renderCards = () => {
         this._items.forEach((item) => {
             this._card = this._renderer(item);
-            this._addItem(this._card);
         })
     }
 
-    _addItem = (card) => {
+    appendItem = (card) => {
         this._container.append(card);
     }
 
-    addItemFromForm = (card) => {
+    prependItem = (card) => {
         this._container.prepend(card);
     }
 }

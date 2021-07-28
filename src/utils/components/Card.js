@@ -4,6 +4,7 @@ class Card {
         this._cardlink = cardInfo.data.link;
         this._cardlike = cardInfo.data.like;
         this._id = cardInfo.data.id;
+        this._userId = cardInfo.data.userId;
         this._template = cardSelector;
         this._handleCardClickImage = cardInfo.handleCardClickImage;
         this._handleCardClickDelete = cardInfo.handleCardClickDelete;
@@ -28,14 +29,14 @@ class Card {
         if ((this._cardlike) && (this._id)) {
             if (this._cardlike.length > 0) {
                 this._cardlike.forEach(el => {
-                    if (el._id === '2780bf4680712425a2ce7298') {
+                    if (el._id === this._userId) {
                         this._card.querySelector('.cards__like').classList.add('cards__like_active')
                     }
                 });
                 this._likesCounter.classList.add('cards__like-counter_visible');
                 this._likesCounter.textContent = this._cardlike.length;
             }
-            if (this._id === '2780bf4680712425a2ce7298') {
+            if (this._id === this._userId) {
                 this._cardRemove.classList.add('cards__delete_visible')
             }
         } else {

@@ -8,12 +8,13 @@ export const editPopupSaveButton = document.querySelector('.popup__save_edit');
 export const addPopupSaveButton = document.querySelector('.popup__save_add');
 export const authorError = document.getElementById('author-error');
 export const descriptionError = document.getElementById('description-error');
-export const profileName = document.querySelector('.profile__title');
-export const profileAbout = document.querySelector('.profile__subtitle');
 export const cardDelte = document.querySelector('.cards__delete');
 export const popupProfileUpdateOpen = document.querySelector('.profile__avatar-link');
 export const formWithAvatar = document.querySelector('.popup__infosave_type_profileUpdate');
-export const profileAvatar = document.querySelector('.profile__avatar');
+export const popupButtonSaveEdit = document.querySelector('.popup__save_edit');
+export const popupButtonSaveProfileUpdate = document.querySelector('.popup__save_profileUpdate');
+export const popupButtonSaveAdd = document.querySelector('.popup__save_add');
+export const popupButtonSaveDelete = document.querySelector('.popup__save_deletecard');
 
 export const validConfig = {
     form: '.popup__infosave',
