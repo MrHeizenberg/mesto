@@ -40,7 +40,6 @@ const popupCardForm = new PopupWithForm('.popup_type_addcard', (item) => {
     .finally(() => renderLoading(false, popupButtonSaveAdd));
 });
 
-const elId = {};
 api.getProfile().then((res) => {
     userInfo.setUserInfo(res.name, res.about);
     userInfo.setUserAvatar(res.avatar);
