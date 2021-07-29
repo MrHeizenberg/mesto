@@ -1,14 +1,14 @@
 import './index.css';
-import Card from '../utils/components/Card.js';
-import FormValidator from '../utils/components/FormValidator.js';
-import Section from '../utils/components/Section.js';
-import PopupWithForm from '../utils/components/PopupWithForm.js';
-import UserInfo from '../utils/components/UserInfo.js';
-import PopupWithImage from '../utils/components/PopupWithImage.js';
-import PopupWithSubmit from '../utils/components/PopupWithSubmit.js';
-import Api from '../utils/components/Api.js';
-import PopupWithAvatar from '../utils/components/PopupWithAvatar.js';
-import { popupEditOpen, popupAddCardOpen, formEdit, formAddCards, validConfig, popupProfileUpdateOpen, formWithAvatar, popupButtonSaveEdit, popupButtonSaveProfileUpdate, popupButtonSaveAdd, popupButtonSaveDelete} from '../utils/components/constants.js';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import Section from '../components/Section.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithSubmit from '../components/PopupWithSubmit.js';
+import Api from '../components/Api.js';
+import PopupWithAvatar from '../components/PopupWithAvatar.js';
+import { popupEditOpen, popupAddCardOpen, formEdit, formAddCards, validConfig, popupProfileUpdateOpen, formWithAvatar, popupButtonSaveEdit, popupButtonSaveProfileUpdate, popupButtonSaveAdd, popupButtonSaveDelete} from '../utils/constants.js';
 import {renderLoading} from '../utils/utils.js';
 
 const section = (items,userId) => new Section({
@@ -26,6 +26,21 @@ const api = new Api({
     }
 });
 
+const popupCardForm = new PopupWithForm('.popup_type_addcard', (item) => {
+    renderLoading(true, popupButtonSaveAdd);
+    api.addCard(item.area, item.imagelink).then((card) => {
+        item = card;
+        const userId = card.owner._id;
+        section(item,userId).prependItem(createCard(item.name, item.link, item.likes, item.owner._id, item._id, userId));
+        popupCardForm.close();
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+    .finally(() => renderLoading(false, popupButtonSaveAdd));
+});
+
+const elId = {};
 api.getProfile().then((res) => {
     userInfo.setUserInfo(res.name, res.about);
     userInfo.setUserAvatar(res.avatar);
@@ -33,24 +48,6 @@ api.getProfile().then((res) => {
     return userId;
 })
 .then((userId) => {
-    const popupCardForm = new PopupWithForm('.popup_type_addcard', (item) => {
-        renderLoading(true, popupButtonSaveAdd);
-        api.addCard(item.area, item.imagelink).then((card) => {
-            item = card;
-            section(item,userId).prependItem(createCard(item.name, item.link, item.likes, item.owner._id, item._id, userId));
-            popupCardForm.close();
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-        .finally(() => renderLoading(false, popupButtonSaveAdd));
-    });
-    popupCardForm.setEventListeners();
-    popupAddCardOpen.addEventListener('click', () => {
-        cardFormValidation.hideErrorWithOpen();
-        cardFormValidation.toggleButtonState();
-        popupCardForm.open();
-    });
     api.getInitialCards().then((items) => {
         section(items,userId).renderCards();
     }).catch((err) => {
@@ -79,11 +76,11 @@ const popupProfile = new PopupWithForm('.popup_type_edit', (item) => {
         })
 });
 
-const popupProfileUpdate = new PopupWithAvatar('.popup_type_profileUpdate', (item) => {
+const popupUpdateAvatar = new PopupWithAvatar('.popup_type_profileUpdate', (item) => {
     renderLoading(true, popupButtonSaveProfileUpdate);
     api.profileAvatarUpdate(item.avatar).then(data => {
         userInfo.setUserAvatar(data.avatar)
-        popupProfileUpdate.close()})
+        popupUpdateAvatar.close()})
     .catch((err) => {
         console.log(err);
     })
@@ -98,7 +95,8 @@ profileValidation.enableValidation();
 cardFormValidation.enableValidation();
 avatarFormValidation.enableValidation();
 
-popupProfileUpdate.setEventListeners();
+popupUpdateAvatar.setEventListeners();
+popupCardForm.setEventListeners();
 popupProfile.setEventListeners();
 popupWithImage.setEventListeners();
 popupWithSubmit.setEventListeners();
@@ -173,5 +171,11 @@ popupEditOpen.addEventListener('click', () => {
 popupProfileUpdateOpen.addEventListener('click', () => {
     avatarFormValidation.hideErrorWithOpen();
     avatarFormValidation.toggleButtonState();
-    popupProfileUpdate.open();
+    popupUpdateAvatar.open();
+});
+
+popupAddCardOpen.addEventListener('click', () => {
+    cardFormValidation.hideErrorWithOpen();
+    cardFormValidation.toggleButtonState();
+    popupCardForm.open();
 });
